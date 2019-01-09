@@ -142,6 +142,11 @@
     } else if (request.requestSerializerType == YTKRequestSerializerTypeJSON) {
         requestSerializer = [AFJSONRequestSerializer serializer];
     }
+    
+    //添加自定义方法
+    if ([request requestSerializer]) {
+        requestSerializer = [request requestSerializer];
+    }
 
     requestSerializer.timeoutInterval = [request requestTimeoutInterval];
     requestSerializer.allowsCellularAccess = [request allowsCellularAccess];
@@ -332,6 +337,11 @@
             case YTKResponseSerializerTypeXMLParser:
                 request.responseObject = [self.xmlParserResponseSerialzier responseObjectForResponse:task.response data:request.responseData error:&serializationError];
                 break;
+        }
+        
+        // 添加自定义responseSerializer
+        if ([request responseSerializer]) {
+            request.responseObject = [[request responseSerializer] responseObjectForResponse:task.response data:request.responseData error:&serializationError];
         }
     }
     if (error) {

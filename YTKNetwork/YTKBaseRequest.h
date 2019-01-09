@@ -67,6 +67,8 @@ typedef NS_ENUM(NSInteger, YTKRequestPriority) {
 };
 
 @protocol AFMultipartFormData;
+@protocol AFURLRequestSerialization;
+@protocol AFURLResponseSerialization;
 
 typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 typedef void (^AFURLSessionTaskProgressBlock)(NSProgress *);
@@ -309,6 +311,10 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 ///  Response serializer type. See also `responseObject`.
 - (YTKResponseSerializerType)responseSerializerType;
+
+// 添加自定义responseSerializer
+- (id<AFURLRequestSerialization>)requestSerializer;
+- (id<AFURLResponseSerialization>)responseSerializer;
 
 ///  Username and password used for HTTP authorization. Should be formed as @[@"Username", @"Password"].
 - (nullable NSArray<NSString *> *)requestAuthorizationHeaderFieldArray;
