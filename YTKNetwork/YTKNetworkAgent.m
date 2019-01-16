@@ -172,7 +172,11 @@
 - (NSURLSessionTask *)sessionTaskForRequest:(YTKBaseRequest *)request error:(NSError * _Nullable __autoreleasing *)error {
     YTKRequestMethod method = [request requestMethod];
     NSString *url = [self buildRequestUrl:request];
+    YTKLog(@"请求URL--%@", url);
     id param = request.requestArgument;
+    if (param) {
+        YTKLog(@"请求参数-%@", param);
+    }
     AFConstructingBlock constructingBlock = [request constructingBodyBlock];
     AFHTTPRequestSerializer *requestSerializer = [self requestSerializerForRequest:request];
 
@@ -325,7 +329,8 @@
     if ([request.responseObject isKindOfClass:[NSData class]]) {
         request.responseData = responseObject;
         request.responseString = [[NSString alloc] initWithData:responseObject encoding:[YTKNetworkUtils stringEncodingWithRequest:request]];
-
+        YTKLog(@"请求结果:%@", request.responseString);
+        
         switch (request.responseSerializerType) {
             case YTKResponseSerializerTypeHTTP:
                 // Default serializer. Do nothing.
