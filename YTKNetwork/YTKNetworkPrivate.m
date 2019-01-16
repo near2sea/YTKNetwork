@@ -31,7 +31,6 @@
 #endif
 
 void YTKLog(NSString *format, ...) {
-#ifdef DEBUG
     if (![YTKNetworkConfig sharedConfig].debugLogEnabled) {
         return;
     }
@@ -39,7 +38,6 @@ void YTKLog(NSString *format, ...) {
     va_start(argptr, format);
     NSLogv(format, argptr);
     va_end(argptr);
-#endif
 }
 
 @implementation YTKNetworkUtils
