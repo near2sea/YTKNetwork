@@ -80,8 +80,8 @@
 - (AFJSONResponseSerializer *)jsonResponseSerializer {
     if (!_jsonResponseSerializer) {
         _jsonResponseSerializer = [AFJSONResponseSerializer serializer];
+        _jsonResponseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", nil];
         _jsonResponseSerializer.acceptableStatusCodes = _allStatusCodes;
-
     }
     return _jsonResponseSerializer;
 }
